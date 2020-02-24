@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
 import { TodoScreen } from "./src/screens/TodoScreen";
 
 export default function App() {
-  const [todoId, setTodoId] = useState(null);
+  const [todoId, setTodoId] = useState("1");
   const [todos, setTodos] = useState([
-    { id: "1", title: "todo 1" },
+    { id: "1", title: "Write app on React Native" },
     { id: "2", title: "todo 2" }
   ]);
 
@@ -22,7 +22,27 @@ export default function App() {
   };
 
   const removeTodo = id => {
-    setTodos(prev => prev.filter(todo => todo.id != id));
+    const todo = todos.find(t => t.id === id);
+    // Works on both Android and iOS
+    Alert.alert(
+      "Delet todo",
+      `Do you seriously want to remove the "${todo.title}"? `,
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => {
+            setTodoId(null);
+            setTodos(prev => prev.filter(todo => todo.id != id));
+          }
+        }
+      ],
+      { cancelable: true }
+    );
   };
 
   let content = (
@@ -42,6 +62,7 @@ export default function App() {
           setTodoId(null);
         }}
         todo={selectedTodo}
+        onRemove = {removeTodo}
       />
     );
   }
