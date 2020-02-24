@@ -1,12 +1,12 @@
 import React from "react";
 import { Test, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export const Todo = ({ todoItem, onRemove }) => {
+export const Todo = ({ todoItem, onRemove, onOpen }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       onPress={() => {
-        console.log("Pressed", todoItem.id);
+        onOpen(todoItem.id);
       }}
       onLongPress={onRemove.bind(null, todoItem.id)}
     >
