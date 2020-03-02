@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 export const AddTodo = ({ onSubmit }) => {
   const [value, setValue] = useState("");
@@ -20,9 +21,11 @@ export const AddTodo = ({ onSubmit }) => {
         onChangeText={setValue}
         value={value}
         placeholder={"Enter todo name..."}
-
       />
-      <Button title="Add" onPress={pressHandler} />
+      <Feather.Button onPress={pressHandler} name="plus-square">
+        Add
+      </Feather.Button>
+      {/* <Button title="Add" onPress={pressHandler} /> */}
     </View>
   );
 };
